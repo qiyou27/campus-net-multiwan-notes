@@ -1,6 +1,8 @@
 # 高校校园网多拨双池架构、协议栈特征与网络排障原理笔记
 
 > **性质说明**：本文仅作为计算机网络、Linux 内核协议栈、OpenWrt/ImmortalWrt 策略路由与可观测性排障的**原理学习笔记**，**不提供任何可直接执行的认证脚本、绕过代码或敏感配置**。请严格遵守所在高校的网络管理规定，仅在自有/授权实验环境下研究学习。
+>
+> **特别致谢**：本文在认证协议分析、门户前端自报 NAT 排查、路由器本机 `OUTPUT` 暴露面、HTTP 附属请求头以及新建连接速率阈值等关键方向上，深受 **[@YifanHere](https://github.com/YifanHere)** 开源的 **[YifanHere/campus-net-nat-bypass](https://github.com/YifanHere/campus-net-nat-bypass)** 启发，衷心感谢作者无私分享扎实的一线实证思路！同时也感谢 **[@Doublesail-A](https://github.com/Doublesail-A)** 的 **[fafu-campus-net-pass](https://github.com/Doublesail-A/fafu-campus-net-pass)** 在 `nftables` 与多路径延迟监测上的实践参考。
 
 测试参考环境：
 - **硬件平台**：ARMv8 四核路由平台（IPQ807x / 1GB RAM）
@@ -215,11 +217,11 @@ flowchart LR
 
 ## 8. 致谢与参考资料
 
-本文的架构梳理与多项实证思路深受以下开源社区项目启发，在此致谢：
+本文的架构梳理与多项实证排查思路深受以下开源作者启发，再次致以诚挚感谢：
 
-- **[YifanHere/campus-net-nat-bypass](https://github.com/YifanHere/campus-net-nat-bypass)**：对 Dr.COM / ePortal 4.x 认证协议、门户前端自报 NAT、路由器本机 `OUTPUT` 暴露面、HTTP 附属请求头以及新建连接速率阈值的深入实证剖析。
-- **[Doublesail-A/fafu-campus-net-pass](https://github.com/Doublesail-A/fafu-campus-net-pass)**：对 `nftables` + `Squid splice` 端到端 TLS 透传重建 TCP、多路径延迟基准监测的工程实践。
-- **OpenWrt / ImmortalWrt、`mwan3`、`UA2F`、`UA3F`** 等开源网络项目社区。
+- **特别感谢 [@YifanHere](https://github.com/YifanHere)（[YifanHere/campus-net-nat-bypass](https://github.com/YifanHere/campus-net-nat-bypass)）**：作者对 Dr.COM / ePortal 4.x 认证协议细节、门户前端 JS/WebRTC 自报 NAT、路由器本机 `OUTPUT` 流量自曝、明文 HTTP 附属请求头（`Accept-Language` / `Referer` 等）、`online_list` 只读对账接口以及新建连接速率阈值的深入实证剖析，为我们定位路由器本机出口混杂与 `146` 冷却根因提供了极其关键的思路。
+- **感谢 [@Doublesail-A](https://github.com/Doublesail-A)（[Doublesail-A/fafu-campus-net-pass](https://github.com/Doublesail-A/fafu-campus-net-pass)）**：对 `nftables` + `Squid splice` 端到端 TLS 透传重建 TCP、以及三路径网络延迟基准监测的工程实践。
+- **感谢 OpenWrt / ImmortalWrt、`mwan3`、`UA2F`、`UA3F`** 等开源网络项目维护者与社区贡献者。
 
 ---
 
